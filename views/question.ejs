@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question</title>
+    <%- include('./components/head'); %>
+</head>
+
+<body>
+    <%- include('./components/navbar',{user:user}); %>
+        <div class="container my-5">
+            <div class="card text-center my-4">
+                <div class="card-header">
+                    <%= quiz.title %>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= question.question %>
+                    </h5>
+                    <input style="text-align: center;" type="text" id=<%=`userAnswer-${question._id}` %>
+                    class="form-control
+                    form-control-lg my-3"
+                    placeholder="Type your answer here">
+
+                    <div class="alert hidden" role="alert" id=<%=`showAnswer-${question._id}` %>>
+                    </div>
+
+                    <button onclick="handleSubmission()" id=<%=`submitButton-${question._id}` %> class="btn
+                        btn-primary">Submit</button>
+
+                </div>
+                <div class="card-footer text-muted">
+                    Quiz Question
+                </div>
+            </div>
+
+            <button onclick="location.reload()" type="button" style="float:right" class="btn btn-success hidden"
+                id="nextQuestionButton"> Next Question
+                <i class="fas fa-arrow-right"></i> </button>
+
+
+        </div>
+
+        <script>
+
+            function displayAnswer(showAnswerElement, question, correct = true) {
+                if (correct) {
+                    showAnswerElement.innerHTML = `<strong>Correct!</strong> Answer: ${question.answer}`
+                    showAnswerElement.classList.add('alert-success')
+                    showAnswerElement.classList.remove('hidden')
+                } else {
+                    showAnswerElement.innerHTML = `<strong>Wrong!</strong> Answer: ${question.answer}`
+                    showAnswerElement.classList.add('alert-danger')
+                    showAnswerElement.classList.remove('hidden')
+                }
+            }
+
+            function checkAnswer(userAnswer, correctAnswer) {
+                return userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase()
+            }
+
+            function handleSubmission() {
+                const question = <%- JSON.stringify(question) %>;
+                const response = document.getElementById(`userAnswer-${question._id}`)
+                const showAnswerElement = document.getElementById(`showAnswer-${question._id}`)
+                const submitButton = document.getElementById(`submitButton-${question._id}`)
+                const nextQuestionButton = document.getElementById('nextQuestionButton')
+
+                const correct = checkAnswer(response.value, question.answer)
+
+                displayAnswer(showAnswerElement, question, correct)
+
+                submitButton.disabled = true
+                nextQuestionButton.classList.remove('hidden')
+
+                // TODO: refactor this method better
+
+                fetch('/user-quiz-data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        questionId: question._id,
+                        correct: correct
+                    }),
+                })
+                    .then(response => console.log(response))
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            }
+        </script>
+</body>
+
+</html>

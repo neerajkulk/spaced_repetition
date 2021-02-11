@@ -1,0 +1,16 @@
+<tr>
+    <td class="pt-3-half">
+        <input type="hidden" name="questionId[]" value='<%=question._id %>'>
+        <textarea name="questions[]" class="form-control" placeholder="Your Question Here" rows="1"
+            required><%= question.question %></textarea>
+    </td>
+    <td class="pt-3-half">
+        <input name="answers[]" class="form-control" type="text" placeholder="Your Answer Here" required
+            value='<%= question.answer %>'>
+    </td>
+    <td>
+        <button onclick="deleteRow(this)" type="button" class="btn btn-danger btn-rounded btn-sm my-0"><i
+                class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+    </td>
+</tr>

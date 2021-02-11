@@ -1,0 +1,6 @@
+<% for(let i=0; i<quizzes.length; i++) {%>
+    <a href="<%= `/quiz/${quizzes[i]._id}` %>" style="text-decoration:none">
+        <%- include('./quizList', {quiz:quizzes[i]}); %>
+    </a>
+
+    <% } %>

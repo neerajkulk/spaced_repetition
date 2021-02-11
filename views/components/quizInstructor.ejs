@@ -1,0 +1,39 @@
+<% for(let i=0; i<quizzes.length; i++) {%>
+    <div class="row">
+        <div class="col-md-10">
+            <a style="text-decoration: none;" href=<%=`/edit-quiz/${quizzes[i]._id}` %> >
+                <%- include('./quizList', {quiz:quizzes[i]}); %>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <button onclick="deleteQuiz(`<%=quizzes[i]._id%>`)" type="button" class="btn btn-danger"> <i
+                    class="fas fa-trash"></i></button>
+        </div>
+    </div>
+
+    <% } %>
+
+
+        <script>
+            function deleteQuiz(quizId) {
+                const confirmDelete = confirm("Are you sure you want to delete the quiz?");
+                if (!confirmDelete) return
+
+                fetch('/delete-quiz', {
+                    method: 'Delete',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        quizId: quizId
+                    }),
+                })
+                    .then(response => {
+                        console.log(response)
+                        location.reload()
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            }
+        </script>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quiz</title>
+    <%- include('./components/head'); %>
+
+</head>
+
+<body>
+    <%- include('./components/navbar', {user:user}); %>
+        <div class="card">
+            <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Quiz Editor</h3>
+            <div class="card-body">
+                <form action='/create-quiz' method="POST">
+                    <input type="hidden" name="quizId" value='<%=quiz._id %>'>
+
+                    <input name='title' class="form-control form-control-lg center my-3" type="text"
+                        placeholder="Quiz Title" aria-label=".form-control-lg example" required
+                        value="<%= quiz.title %>">
+
+
+                    <div id="table" class="table-editable">
+                        <button id='newRowBtn' onclick="addNewRow()" type="button"
+                            class="btn btn-outline-success my-3 border-0"><i class="fas fa-plus" aria-hidden="true"></i>
+                            Add
+                            Question
+                        </button>
+
+                        <table class="table table-bordered table-responsive-md table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Question</th>
+                                    <th class="text-center">Answer</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody id='questionTable'>
+                                <% if(Object.keys(quiz).length !=0 ){ %>
+                                    <% for(let i=quiz.questions.length - 1; i>=0; i--) {%>
+                                        <%- include('./components/quizRow',{question:quiz.questions[i]}) %>
+                                            <% } %>
+                                                <% }else{%>
+                                                    <%- include('./components/quizRow',{question:{}}) %>
+                                                        <%- include('./components/quizRow',{question:{}}) %>
+                                                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="submit" class="btn btn-primary my-3">Create Quiz</button>
+                </form>
+            </div>
+        </div>
+
+
+        <script>
+            const questionTable = document.getElementById('questionTable')
+            function addNewRow() {
+                const row = questionTable.insertRow(0);
+                row.innerHTML = `
+                            <td class="pt-3-half">
+                                <input type="hidden"  name="questionId[]" value=''> 
+                                <textarea name="questions[]" class="form-control" placeholder="Your Question Here"
+                                    rows="1" required></textarea>
+                            </td>
+                            <td class="pt-3-half">
+                                <input name="answers[]" class="form-control" type="text"
+                                    placeholder="Your Answer Here" required>
+                            </td>
+                            <td>
+                                <button onclick="deleteRow(this)" type="button"
+                                    class="btn btn-danger btn-rounded btn-sm my-0"><i class="fa fa-trash"
+                                        aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        `
+
+            }
+
+            function deleteRow(elem) {
+                const row = elem.parentElement.parentElement
+                row.remove()
+            }
+
+        </script>
+
+</body>
+
+</html>

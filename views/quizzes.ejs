@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzes</title>
+    <%- include('./components/head') %>
+</head>
+
+<body>
+    <%- include('./components/navbar', {user:user}) %>
+
+        <div class="container">
+            <h1 class="center my-5">Quizzes</h1>
+            <div class="list-group">
+
+
+                <% if (user.userType === 'guest') { %>
+                    <%- include('./components/quizGuest', {quizzes:quizzes}) %>
+                <% } else if (user.userType === 'student') { %>
+                    <%- include('./components/quizStudent', {quizzes:quizzes}) %>
+                <% } else if (user.userType === 'instructor') { %>
+                    <%- include('./components/quizInstructor', {quizzes:quizzes}) %>
+                <% } %>
+            </div>
+        </div>
+
+
+        <script>
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl)
+            })
+        </script>
+
+</body>
+
+</html>

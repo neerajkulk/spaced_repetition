@@ -1,0 +1,49 @@
+https://twitter.com/TeamLearnToWin/status/1290358067880747011/video/1
+https://www.loom.com/share/7b6ccdbebb87422ca22628ef6526495a
+
+
+
+Priooritize, spaced rep learning system
+- Q 
+- Answers
+
+Question 
+
+heroku git:remote -a agile-refuge-77893
+
+
+Tasks Remaining: 
+    Create a few demo quizzes
+    https://www.kyleads.com/blog/general-trivia-questions/
+    create sample accounts
+    Actually have a sample quiz to learn
+    add to readme - used bootstrap to make a responsive UI. UI is still usable on a mobile device
+    create sample accounts
+
+
+Can optimize space reperition learaner but if the number of questions in a quiz is small, this is not a problem. 
+
+quiz: [List of questions]
+
+Generate a quiz: Each quiz depends on the list of questions in the quiz and also the user
+
+Quiz Questions (quiz, user)
+
+Make everything responsive and talk about it 
+
+
+UserQuizData {
+    Question: id
+    Quiz: id
+    User:id
+    LastAttempted:id
+    score:Correct/False //Get this from the client
+}
+
+1 main endpoint ( /quiz/:id)
+fetch all questions assigned to userID,
+sort questions by date and difficulty
+display random question
+Frontend updates date and difficulty
+
+Quiz generation (function of Questions and Queue)

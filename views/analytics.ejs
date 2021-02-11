@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+    <%- include('./components/head'); %>
+</head>
+
+<body>
+    <%- include('./components/navbar', {user:user}); %>
+        <div class="container">
+            <h1 class="center my-5">Quiz Analytics</h1>            
+                <hr>
+                <% for(let i=0; i<stats.length; i++) {%>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card border-0" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">
+                                        <%= stats[i].user.email %>
+                                    </h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Questions Attempted: <%=
+                                            stats[i].stats.questionsAttempted %>
+                                    </h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Percent Accuracy: <%=
+                                            stats[i].stats.accuracy %> %</h6>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8" style="margin: auto;">
+                            <div class="progress" style="height: 20px;">
+                                <div class="progress-bar progress-bar bg-success" role="progressbar"
+                                    style=<%=`width:${stats[i].stats.accuracy}%`%>
+                                    aria-valuemin="0" aria-valuemax="100"><%=stats[i].stats.accuracy %> %</div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <% } %>
+        </div>
+
+
+
+
+</body>
+
+</html>

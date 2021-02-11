@@ -1,0 +1,8 @@
+<% for(let i=0; i<quizzes.length; i++) {%>
+
+
+    <div data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Only Students can access the quizzes">
+        <%- include('./quizList', {quiz:quizzes[i]}); %>
+    </div>
+
+    <% } %>

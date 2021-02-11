@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <%- include('./components/head'); %>
+</head>
+
+<body>
+    <div class="container">
+
+
+
+        <div class="bg-light p-5 rounded-lg m-3">
+            <h1 class="display-4">Learn anything faster!</h1>
+            <p class="lead"> Learn faster with the spaced repertiton learning technique. Instructors can
+                create quizzes
+                and students can learn FAST using a spaced repetiton algorithm. </p>
+            <hr class="my-4">
+
+            <h1>Login</h1>
+
+            <form action="/login" method="POST">
+                <%- include('./components/flash',{flash:flash}); %>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" name='email' aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Log In</button>
+            </form>
+            <div class="row">
+                <div class="col-md-3">
+                    <div id="helper" class="form-text my-3">
+                        <p>
+                            <span class="lead">Sample student</span><br>
+                            user : student@test.com <br>
+                            pass : student123
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div id="helper" class="form-text my-3">
+                        <p>
+                            <span class="lead">Sample instructor</span><br>
+                            user : instructor@test.com <br>
+                            pass : instructor123
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div id="helper" class="form-text my-3">
+                        <p>
+                            <span class="lead">Sample Guest</span><br>
+                            user : guest@test.com <br>
+                            pass : guest123
+                        </p>
+                    </div>
+                </div>
+                <h5> or register for a <a href="/register">new account</a></h5>
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+
+</html>
